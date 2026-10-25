@@ -1,0 +1,21 @@
+# Maven build directory
+target/
+
+# IDE and OS files
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Logs and JVM crash reports
+logs/
+*.log
+hs_err_pid*.log
+
+# Git files
+.git/
+.gitignore
+
+# Docker configuration
+docker-compose.yml

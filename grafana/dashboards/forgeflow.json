@@ -1,0 +1,66 @@
+{
+  "annotations": { "list": [] },
+  "editable": false,
+  "panels": [
+    {
+      "title": "Workflow Completion Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 0 },
+      "targets": [ { "expr": "sum(rate(forgeflow_workflow_runs_total[5m])) by (status)", "legendFormat": "{{status}}" } ]
+    },
+    {
+      "title": "Job Completion Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 0 },
+      "targets": [ { "expr": "sum(rate(forgeflow_job_runs_total[5m])) by (status)", "legendFormat": "{{status}}" } ]
+    },
+    {
+      "title": "Step Completion Rate",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 0 },
+      "targets": [ { "expr": "sum(rate(forgeflow_step_runs_total[5m])) by (status)", "legendFormat": "{{status}}" } ]
+    },
+    {
+      "title": "Avg Workflow Duration (s)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 8 },
+      "targets": [ { "expr": "sum(rate(forgeflow_workflow_duration_seconds_sum[5m])) by (status) / sum(rate(forgeflow_workflow_duration_seconds_count[5m])) by (status)", "legendFormat": "{{status}}" } ]
+    },
+    {
+      "title": "Avg Job Duration (s)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 8 },
+      "targets": [ { "expr": "sum(rate(forgeflow_job_duration_seconds_sum[5m])) by (status) / sum(rate(forgeflow_job_duration_seconds_count[5m])) by (status)", "legendFormat": "{{status}}" } ]
+    },
+    {
+      "title": "Avg Step Duration (s)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 8 },
+      "targets": [ { "expr": "sum(rate(forgeflow_step_duration_seconds_sum[5m])) by (status) / sum(rate(forgeflow_step_duration_seconds_count[5m])) by (status)", "legendFormat": "{{status}}" } ]
+    },
+    {
+      "title": "JVM Heap Used (Bytes)",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 16 },
+      "targets": [ { "expr": "sum(jvm_memory_used_bytes{area=\"heap\"})" } ]
+    },
+    {
+      "title": "JVM Process CPU Usage",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 16 },
+      "targets": [ { "expr": "process_cpu_usage" } ]
+    },
+    {
+      "title": "HikariCP Active Connections",
+      "type": "timeseries",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 16 },
+      "targets": [ { "expr": "sum(hikaricp_connections)" } ]
+    }
+  ],
+  "schemaVersion": 38,
+  "style": "dark",
+  "time": { "from": "now-1h", "to": "now" },
+  "title": "ForgeFlow Operations",
+  "uid": "forgeflow-main",
+  "version": 1
+}

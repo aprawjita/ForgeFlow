@@ -1,0 +1,12 @@
+﻿target/
+.idea/
+*.iml
+.vscode/
+.DS_Store
+Thumbs.db
+logs/
+*.log
+hs_err_pid*.log
+.git/
+.gitignore
+docker-compose.yml

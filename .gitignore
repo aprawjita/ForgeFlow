@@ -1,0 +1,8 @@
+# ForgeFlow local runtime state and logs
+.runtime/
+logs/
+*.log
+hs_err_pid*
+replay_pid*
+.env
+.env.*

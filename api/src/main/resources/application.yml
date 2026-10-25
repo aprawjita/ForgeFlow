@@ -1,0 +1,84 @@
+spring:
+  application:
+    name: forgeflow-api
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  datasource:
+    url: jdbc:postgresql://localhost:5433/forgeflow_db
+    username: testuser
+    password: testpass
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring:
+          json:
+            add:
+              type:
+                headers: false
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "*"
+
+server:
+  port: 8080
+
+application:
+  security:
+    jwt:
+      expiration: 86400000
+
+forgeflow:
+  vault:
+    enabled: true 
+    address: http://127.0.0.1:8200
+    auth-mode: TOKEN
+    token: test-root-token
+  logs:
+    directory: logs/workflow-runs
+  storage:
+    endpoint: http://localhost:9000
+    access-key: forgeflow_minio_admin
+    secret-key: forgeflow_minio_password
+    region: us-east-1
+    bucket: forgeflow-bucket
+  kafka:
+    topic:
+      workflow-run-triggered: workflow-run-triggered
+      job-run-queued: job-run-queued
+      job-run-completed: job-run-completed
+
+# ==================================================
+# PHASE 17 PART 4: OBSERVABILITY & PROBES
+# ==================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: when_authorized
+      group:
+        readiness:
+          include: readinessState, db, redis
